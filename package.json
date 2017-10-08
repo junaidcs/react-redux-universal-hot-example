@@ -1,14 +1,14 @@
 {
-  "name": "react-redux-universal-hot-example",
+  "name": "inseaders-v2",
   "description": "Example of an isomorphic (universal) webapp using react redux and hot reloading",
-  "author": "Erik Rasmussen <rasmussenerik@gmail.com> (http://github.com/erikras)",
+  "author": "Muhammad Junaid <m.junaidcs@gmail.com> (http://github.com/junaidcs)",
   "license": "MIT",
   "version": "0.9.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erikras/react-redux-universal-hot-example"
+    "url": "https://github.com/junaidcs/react-redux-universal-hot-example"
   },
-  "homepage": "https://github.com/erikras/react-redux-universal-hot-example",
+  "homepage": "https://github.com/junaidcs/react-redux-universal-hot-example",
   "keywords": [
     "react",
     "isomorphic",
@@ -37,10 +37,7 @@
     "lint": "eslint -c .eslintrc src",
     "test": "bnr test",
     "test-node": "bnr test-node",
-    "lighthouse-report": "lighthouse http://localhost:8080 --view",
-    "docker-build": ". ./docker/build.sh",
-    "docker-dev": ". ./docker/run.dev.sh",
-    "docker-prod": ". ./docker/run.prod.sh"
+    "lighthouse-report": "lighthouse http://localhost:8080 --view"
   },
   "lint-staged": {
     "+(src)/**/*.js": [
