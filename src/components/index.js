@@ -5,7 +5,6 @@
  *
  */
 
-export CounterButton from './CounterButton/CounterButton';
 export InfoBar from './InfoBar/InfoBar';
 // export LoginForm from './LoginForm/LoginForm';
 // export MiniInfoBar from './MiniInfoBar/MiniInfoBar';

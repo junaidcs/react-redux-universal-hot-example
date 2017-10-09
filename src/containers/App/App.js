@@ -97,25 +97,6 @@ export default class App extends Component {
 
           <Navbar.Collapse>
             <Nav navbar>
-              {user && (
-                <LinkContainer to="/chatFeathers">
-                  <NavItem>Chat with Feathers</NavItem>
-                </LinkContainer>
-              )}
-
-              <LinkContainer to="/chat">
-                <NavItem>Chat</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/widgets">
-                <NavItem>Widgets</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/survey">
-                <NavItem>Survey</NavItem>
-              </LinkContainer>
-              <LinkContainer to="/about">
-                <NavItem>About Us</NavItem>
-              </LinkContainer>
-
               {!user && (
                 <LinkContainer to="/login">
                   <NavItem>Login</NavItem>
@@ -139,15 +120,7 @@ export default class App extends Component {
                 Logged in as <strong>{user.email}</strong>.
               </p>
             )}
-            <Nav navbar pullRight>
-              <NavItem
-                target="_blank"
-                title="View on Github"
-                href="https://github.com/erikras/react-redux-universal-hot-example"
-              >
-                <i className="fa fa-github" />
-              </NavItem>
-            </Nav>
+
           </Navbar.Collapse>
         </Navbar>
 

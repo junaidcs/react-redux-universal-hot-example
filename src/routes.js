@@ -41,6 +41,8 @@ export default store => {
         You can also protect a route like this:
         <Route path="protected-route" {...permissionsComponent(isAuthenticated)(Component)}>
       */}
+
+      {/*
       <Route {...permissionsComponent(isAuthenticated)()}>
         <Route path="loginSuccess" getComponent={() => System.import('./containers/LoginSuccess/LoginSuccess')} />
         <Route
@@ -52,7 +54,7 @@ export default store => {
             )}
         />
       </Route>
-
+      */}
       {/* Routes disallow login */}
       <Route {...permissionsComponent(isNotAuthenticated)()}>
         <Route path="register" getComponent={() => System.import('./containers/Register/Register')} />
@@ -60,7 +62,8 @@ export default store => {
 
       {/* Routes */}
       <Route path="login" getComponent={() => System.import('./containers/Login/Login')} />
-      <Route path="about" getComponent={() => System.import('./containers/About/About')} />
+
+      {/*
       <Route
         path="survey"
         getComponent={() =>
@@ -69,15 +72,7 @@ export default store => {
             System.import('./containers/Survey/Survey')
           )}
       />
-      <Route
-        path="widgets"
-        getComponent={() =>
-          injectReducerAndRender(
-            { widgets: System.import('./redux/modules/widgets') },
-            System.import('./containers/Widgets/Widgets')
-          )}
-      />
-      <Route path="chat" getComponent={() => System.import('./containers/Chat/Chat')} />
+      */}
 
       {/* Catch all route */}
       <Route path="*" component={NotFound} status={404} />
