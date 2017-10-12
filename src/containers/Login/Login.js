@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import LoginForm from 'components/LoginForm/LoginForm';
 import * as authActions from 'redux/modules/auth';
-import * as notifActions from 'redux/modules/notifs';
 
-@connect(state => ({ user: state.auth.user }), { ...notifActions, ...authActions })
+
+@connect(state => ({ user: state.auth.user }), { ...authActions })
 export default class Login extends Component {
   static propTypes = {
     user: PropTypes.shape({
@@ -14,7 +15,6 @@ export default class Login extends Component {
     }),
     login: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-    notifSend: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -25,43 +25,27 @@ export default class Login extends Component {
     router: PropTypes.object
   };
 
-  onFacebookLogin = async (err, data) => {
-    if (err) return;
+  componentDidMount() {
+    if (this.props.authenticated) {
+      this.props.pushState('/')
+    }
+  }
 
-    try {
-      await this.props.login('facebook', data);
-      this.successLogin();
-    } catch (error) {
-      if (error.message === 'Incomplete oauth registration') {
-        this.context.router.push({
-          pathname: '/register',
-          state: { oauth: error.data }
-        });
+  componentWillReceiveProps(nextProps) {
+    console.log('LOGIN: componentWillReceiveProps, nextProps', nextProps)
+    if (this.props.loading && !nextProps.loading && nextProps.authenticated) {
+      if (this.props.location.query.redirect) {
+        window.location.href = this.props.location.query.redirect
       } else {
-        throw error;
+        window.location.href = '/'
       }
     }
-  };
+  }
 
   login = async data => {
-    const result = await this.props.login('local', data);
-    this.successLogin();
+    const result = await this.props.login(data);
     return result;
   };
-
-  successLogin = () => {
-    this.props.notifSend({
-      message: "You'r logged !",
-      kind: 'success',
-      dismissAfter: 2000
-    });
-  };
-
-  FacebookLoginButton = ({ facebookLogin }) => (
-    <button className="btn btn-primary" onClick={facebookLogin}>
-      Login with <i className="fa fa-facebook-f" />
-    </button>
-  );
 
   render() {
     const { user, logout } = this.props;
@@ -72,7 +56,6 @@ export default class Login extends Component {
         {!user && (
           <div>
             <LoginForm onSubmit={this.login} />
-            <p>This will "log you in" as this user, storing the username in the session of the API server.</p>
           </div>
         )}
         {user && (

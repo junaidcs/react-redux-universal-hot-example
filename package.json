@@ -31,20 +31,11 @@
     "watch-client": "bnr watch-client",
     "build": "bnr build",
     "build-dlls": "webpack --colors --display-error-details --config webpack/vendor.config.js",
-    "postinstall": "concurrently \"npm run build\" \"npm run build-dlls\"",
-    "precommit": "lint-staged",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc './+(src)/**/*.js'",
     "lint": "eslint -c .eslintrc src",
     "test": "bnr test",
     "test-node": "bnr test-node",
     "lighthouse-report": "lighthouse http://localhost:8080 --view"
-  },
-  "lint-staged": {
-    "+(src)/**/*.js": [
-      "prettier-eslint --write --eslint-config-path .eslintrc",
-      "eslint -c .eslintrc",
-      "git add"
-    ]
   },
   "betterScripts": {
     "start-prod": {

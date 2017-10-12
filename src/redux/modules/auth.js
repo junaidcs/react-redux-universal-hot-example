@@ -1,4 +1,3 @@
-import { socket } from 'app';
 import { SubmissionError } from 'redux-form';
 import cookie from 'js-cookie';
 
@@ -31,8 +30,8 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        accessToken: action.result.accessToken,
-        user: action.result.user
+        accessToken: action.result.respData.loginAction.authToken,
+        user: action.result.respData.user
       };
     case LOAD_FAIL:
       return {
@@ -50,8 +49,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         loggingIn: false,
-        accessToken: action.result.accessToken,
-        user: action.result.user
+        accessToken: action.result.respData.loginAction.authToken,
+        user: action.result.respData.user
       };
     case LOGIN_FAIL:
       return {
@@ -166,30 +165,37 @@ export function register(data) {
   };
 }
 
-export function login(strategy, data) {
-  const socketId = socket.io.engine.id;
+export function login(data) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: async ({ client, restApp, app }) => {
-      try {
-        const response = await restApp.authenticate({
-          ...data,
-          strategy,
-          socketId
-        });
-        await setCookie({ app })(response);
-        setToken({ client, app, restApp })(response);
-        setUser({ app, restApp })(response);
-        return response;
-      } catch (error) {
-        if (strategy === 'local') {
-          return catchValidation(error);
-        }
-        throw error;
-      }
-    }
+    promise: ({ client }) => client.post('/auth/login', data)
   };
 }
+
+// export function login(strategy, data) {
+//   const socketId = socket.io.engine.id;
+//   return {
+//     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
+//     promise: async ({ client, restApp, app }) => {
+//       try {
+//         const response = await restApp.authenticate({
+//           ...data,
+//           strategy,
+//           socketId
+//         });
+//         await setCookie({ app })(response);
+//         setToken({ client, app, restApp })(response);
+//         setUser({ app, restApp })(response);
+//         return response;
+//       } catch (error) {
+//         if (strategy === 'local') {
+//           return catchValidation(error);
+//         }
+//         throw error;
+//       }
+//     }
+//   };
+// }
 
 export function logout() {
   return {
@@ -200,3 +206,4 @@ export function logout() {
     }
   };
 }
+

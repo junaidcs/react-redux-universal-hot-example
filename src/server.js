@@ -84,7 +84,7 @@ app.use((req, res) => {
   const providers = {
     client: apiClient(req),
     app: createApp(req),
-    restApp: createApp(req)
+    restApp: createApp(req) // TODO: Remove it if not needed
   };
   const memoryHistory = createHistory(req.originalUrl);
   const store = createStore(memoryHistory, providers);

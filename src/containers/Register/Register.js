@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import RegisterForm from 'components/RegisterForm/RegisterForm';
 import * as authActions from 'redux/modules/auth';
-import * as notifActions from 'redux/modules/notifs';
 
-@connect(() => ({}), { ...notifActions, ...authActions })
+@connect(() => ({}), { ...authActions })
 export default class Register extends Component {
   static propTypes = {
     location: PropTypes.shape({
